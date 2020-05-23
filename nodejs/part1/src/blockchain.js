@@ -4,13 +4,12 @@
 
   const Consensus   = require('./consensus')
   const parse       = require('url-parse');
-  const Utils = require("./utils");
-
+  const Utils       = require("./utils");  
+  const stopWatch   = require("./StopWatch");
 
   function Blockchain(consensus,blocks){
     this.blocks = [] //the chain of blocks!
-    if(blocks)
-    {
+    if(blocks) {
       this.blocks = blocks;
     }
     this.peers = new Set(); //list of unique peers in the network
@@ -26,7 +25,10 @@
       previousBlockHash = this.blocks[this.blocks.length-1].hash;
       newBlockNumber = this.blocks.length;
     }
+    stopWatch.start();
     let block = this.consensus.mineBlock(newBlockNumber,data,previousBlockHash);
+    stopWatch.stop();
+    console.log("Time to create new block: " + stopWatch.duration());
     this.blocks.push(block);
     return block;
   }

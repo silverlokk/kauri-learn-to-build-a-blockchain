@@ -6,6 +6,7 @@
   const Api         = require("./api");
   const Blockchain  = require('../src/blockchain');
   const Consensus   = require('../src/consensus');
+  const stopWatch   = require("./StopWatch");
 
   const DEFAULT_PORT = 5000;
   const args = Utils.parseArgs();
